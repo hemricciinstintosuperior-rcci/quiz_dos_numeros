@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Perfil Quântico</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f172a; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .quiz-container { background: #1e293b; max-width: 550px; width: 100%; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); text-align: center; }
+        .logo-quiz { max-width: 100%; height: 180px; object-fit: cover; margin-bottom: 20px; border-radius: 12px; }
+        .progress-bar { width: 100%; height: 6px; background: #334155; border-radius: 10px; margin-bottom: 30px; overflow: hidden; }
+        .progress-fill { height: 100%; background: #ffd633; width: 0%; transition: 0.4s; }
+        .pergunta { display: none; animation: fadeIn 0.5s; }
+        .pergunta.ativa { display: block; }
+        h2 { font-size: 20px; margin-bottom: 25px; line-height: 1.4; color: #f8fafc; }
+        .btn-opcao { display: block; width: 100%; padding: 16px; margin-bottom: 12px; background: #334155; border: 2px solid transparent; border-radius: 12px; color: white; font-size: 16px; cursor: pointer; transition: 0.3s; text-align: left; }
+        .btn-opcao:hover { background: #475569; border-color: #ffd633; transform: scale(1.02); }
+        .processando { display: none; }
+        .resultado { display: none; text-align: center; animation: fadeIn 0.8s; }
+        .resultado h3 { color: #ffd633; font-size: 26px; margin-bottom: 15px; }
+        .resultado p { line-height: 1.6; color: #cbd5e1; margin-bottom: 25px; }
+        .btn-final { display: inline-block; padding: 20px 40px; background: #ffd633; color: #000; text-decoration: none; font-weight: bold; border-radius: 12px; font-size: 18px; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 214, 51, 0.3); }
+        .btn-final:hover { background: #eab308; transform: translateY(-3px); }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    
+    <div id="quiz-content"></div>
+
+    <div id="tela-processando" class="processando">
+        <img src="https://hemricciinstintosuperior-rcci.github.io/app-plano-de-expressao/ícone-512.jpg" style="width:100px; animation: pulse 1.5s infinite;">
+        <h2>Sintonizando sua frequência...</h2>
+        <p>Aguarde enquanto cruzamos seus dados vibracionais.</p>
+    </div>
+
+    <div id="tela-resultado" class="resultado">
+        <div id="mensagem-final"></div>
+        <a href="#" id="link-hotmart" class="btn-final">DESBLOQUEAR MEU ACESSO</a>
+    </div>
+</div>
+
+<script>
+    const perguntas = [
+        { q: "Qual o seu maior desejo hoje? 🎯", img: "ID_DA_IMAGEM_1", 
+          options: [
+              { t: "❤️ Harmonizar meu relacionamento atual", cat: "amor" },
+              { t: "🔮 Prever o que me espera no futuro", cat: "futuro" },
+              { t: "⚡ Recuperar minha energia e clareza mental", cat: "energia" },
+              { t: "🌟 Desvendar minha missão de vida completa", cat: "auto" }
+          ]},
+        { q: "O que mais te impede de ser feliz agora? 🚧", img: "ID_DA_IMAGEM_2", 
+          options: [
+              { t: "💔 Conflitos e brigas no amor", cat: "amor" },
+              { t: "⏳ Insegurança sobre o que está por vir", cat: "futuro" },
+              { t: "😵 Indecisão e cansaço constante", cat: "energia" },
+              { t: "🌀 Sinto que não sei quem eu sou de verdade", cat: "auto" }
+          ]},
+        { q: "Como você se sente ao acordar? ☕", img: "ID_DA_IMAGEM_3", 
+          options: [
+              { t: "😔 Pensando em problemas de relacionamento", cat: "amor" },
+              { t: "😰 Ansioso(a) com as contas ou futuro", cat: "futuro" },
+              { t: "😴 Sem energia física ou motivação", cat: "energia" },
+              { t: "🧭 Sinto que falta um propósito maior", cat: "auto" }
+          ]},
+        { q: "O que você gostaria que o universo te respondesse? ✨", img: "ID_DA_IMAGEM_4", 
+          options: [
+              { t: "💑 'Ele(a) é minha alma gêmea?'", cat: "amor" },
+              { t: "🗓️ 'Quando minha sorte vai mudar?'", cat: "futuro" },
+              { t: "🧠 'Como equilibrar minha mente e corpo?'", cat: "energia" },
+              { t: "📜 'Qual o segredo do meu destino?'", cat: "auto" }
+          ]},
+        { q: "Se pudesse mudar apenas UMA coisa hoje, seria: 🔄", img: "ID_DA_IMAGEM_5", 
+          options: [
+              { t: "💖 Ter paz no coração e na união", cat: "amor" },
+              { t: "📈 Ter sucesso e prosperidade garantida", cat: "futuro" },
+              { t: "🌈 Ter uma vibração positiva e foco", cat: "energia" },
+              { t: "🛡️ Ter o conhecimento total do meu nome", cat: "auto" }
+          ]},
+        { q: "Você acredita que repete ciclos do passado? ♾️", img: "ID_DA_IMAGEM_6", 
+          options: [
+              { t: "🫂 Sim, sempre atraio o mesmo tipo de pessoa", cat: "amor" },
+              { t: "💸 Sim, minha vida financeira parece travada", cat: "futuro" },
+              { t: "🔋 Sim, começo coisas e nunca termino", cat: "energia" },
+              { t: "🌀 Quero quebrar todos esses ciclos agora", cat: "combo" }
+          ]},
+        { q: "Qual ferramenta você mais confia? 🛠️", img: "ID_DA_IMAGEM_7", 
+          options: [
+              { t: "💕 Sinastria e Harmonia Amorosa", cat: "amor" },
+              { t: "🏛️ Pirâmide do Futuro e Destino", cat: "futuro" },
+              { t: "📊 Gráficos de Plano de Expressão", cat: "energia" },
+              { t: "📚 Estudo Numerológico Completo", cat: "auto" }
+          ]},
+        { q: "Como está sua mente hoje? 🧠", img: "ID_DA_IMAGEM_8", 
+          options: [
+              { t: "💭 Focada em alguém especial", cat: "amor" },
+              { t: "🚀 Focada em planos e metas distantes", cat: "futuro" },
+              { t: "🌫️ Nublada, confusa e sobrecarregada", cat: "energia" },
+              { t: "🧘 Buscando entender o 'porquê' de tudo", cat: "auto" }
+          ]},
+        { q: "Se o seu nome fosse uma chave, o que ele abriria? 🔑", img: "ID_DA_IMAGEM_9", 
+          options: [
+              { t: "🚪 A porta da felicidade a dois", cat: "amor" },
+              { t: "🚪 A porta da abundância futura", cat: "futuro" },
+              { t: "🚪 A porta do equilíbrio interior", cat: "energia" },
+              { t: "🏰 O castelo de todo o meu potencial oculto", cat: "auto" }
+          ]},
+        { q: "ÚLTIMA PERGUNTA: Qual sua escolha final? 🏁", img: "ID_DA_IMAGEM_10", 
+          options: [
+              { t: "🎯 Resolver apenas minha dor principal", cat: "auto" },
+              { t: "💎 Quero o Combo Completo (Tudo de uma vez)", cat: "combo" },
+              { t: "🔥 Quero entender Amor + Futuro + Energia", cat: "combo" },
+              { t: "✨ Quero a Transformação Total 360º", cat: "combo" }
+          ]}
+    ];
+
+    let perguntaAtual = 0;
+    let pontos = { amor: 0, futuro: 0, energia: 0, auto: 0, combo: 0 };
+
+    function renderizarPergunta() {
+        const content = document.getElementById('quiz-content');
+        const p = perguntas[perguntaAtual];
+        const progress = ((perguntaAtual) / perguntas.length) * 100;
+        document.getElementById('progressFill').style.width = progress + "%";
+
+        let html = `<div class="pergunta ativa">
+            <img src="${p.img}" class="logo-quiz" onerror="this.src='https://via.placeholder.com/500x200/1e293b/ffd633?text=Instinto+Superior'">
+            <h2>${p.q}</h2>`;
+        
+        p.options.forEach((opt) => {
+            html += `<button class="btn-opcao" onclick="proxima('${opt.cat}')">${opt.t}</button>`;
+        });
+        
+        html += `</div>`;
+        content.innerHTML = html;
+    }
+
+    function proxima(categoria) {
+        pontos[categoria]++;
+        perguntaAtual++;
+        if (perguntaAtual < perguntas.length) renderizarPergunta();
+        else mostrarProcessamento();
+    }
+
+    function mostrarProcessamento() {
+        document.getElementById('quiz-content').style.display = 'none';
+        document.getElementById('progressFill').style.width = "100%";
+        document.getElementById('tela-processando').style.display = 'block';
+        setTimeout(calcularResultado, 3500);
+    }
+
+    function calcularResultado() {
+        document.getElementById('tela-processando').style.display = 'none';
+        document.getElementById('tela-resultado').style.display = 'block';
+
+        const max = Object.keys(pontos).reduce((a, b) => pontos[a] > pontos[b] ? a : b);
+        const msg = document.getElementById('mensagem-final');
+        const link = document.getElementById('link-hotmart');
+
+        if (pontos.combo >= 1 || (pontos.amor > 1 && pontos.futuro > 1)) {
+            msg.innerHTML = "<h3>💎 O COMBO MESTRE 💎</h3><p>Sua análise revelou que sua vida está em uma fase de múltiplas necessidades. Não basta resolver apenas um lado. Você precisa do <strong>Estudo Completo + Pirâmide + Plano de Expressão</strong> para um desbloqueio real e duradouro.</p>";
+            link.href = "LINK_DO_COMBO_TUDO";
+        } else if (max === 'amor') {
+            msg.innerHTML = "<h3>❤️ HARMONIA CONJUGAL ❤️</h3><p>Sua maior urgência é a estabilidade emocional e afetiva. A Numerologia Quântica indica que entender a sinastria e a vibração do casal é a chave para sua paz agora.</p>";
+            link.href = "https://hemricciinstintosuperior-rcci.github.io/Harmonia_conjugal/";
+        } else if (max === 'futuro') {
+            msg.innerHTML = "<h3>🔮 PIRÂMIDE DA VIDA 🔮</h3><p>Seu perfil é visionário. Você precisa de orientação sobre ciclos, colheitas e os eventos que o universo está desenhando para o seu futuro próximo.</p>";
+            link.href = "https://hemricciinstintosuperior-rcci.github.io/Matriz_quantica_da_vida/";
+        } else if (max === 'energia') {
+            msg.innerHTML = "<h3>⚡ PLANO DE EXPRESSÃO ⚡</h3><p>Sua vibração está em conflito. Você precisa entender como seus planos Físico, Mental e Emocional estão drenando sua força para retomar o controle da sua vida.</p>";
+            link.href = "https://hemricciinstintosuperior-rcci.github.io/app-plano-de-expressao/";
+        } else {
+            msg.innerHTML = "<h3>📜 ESTUDO COMPLETO 📜</h3><p>Você busca a essência. O seu nome e nascimento guardam códigos sobre sua missão de alma e talentos que você ainda não acessou.</p>";
+            link.href = "https://hemricciinstintosuperior-rcci.github.io/estudo_numerologico/";
+        }
+    }
+    renderizarPergunta();
+</script>
+</body>
+</html>
