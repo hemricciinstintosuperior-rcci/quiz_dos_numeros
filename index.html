@@ -39,10 +39,10 @@
         <p>Aguarde enquanto cruzamos seus dados vibracionais.</p>
     </div>
 
-    <div id="tela-resultado" class="resultado">
-        <div id="mensagem-final"></div>
-        <a href="#" id="https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia//index.html" class="btn-final">DESBLOQUEAR MEU ACESSO</a>
-    </div>
+<div id="tela-resultado" class="resultado">
+    <div id="mensagem-final"></div>
+    <a href="#" id="botao-redirecionar" class="btn-final">DESBLOQUEAR MEU ACESSO</a>
+</div>
 </div>
 
 <script>
@@ -173,35 +173,37 @@
         setTimeout(calcularResultado, 3500);
     }
 
-    function calcularResultado() {
-        document.getElementById('tela-processando').style.display = 'none';
-        document.getElementById('tela-resultado').style.display = 'block';
+function calcularResultado() {
+    document.getElementById('tela-processando').style.display = 'none';
+    document.getElementById('tela-resultado').style.display = 'block';
 
-        const max = Object.keys(pontos).reduce((a, b) => pontos[a] > pontos[b] ? a : b);
-        const msg = document.getElementById('mensagem-final');
-        const link = document.getElementById('link-hotmart');
+    const max = Object.keys(pontos).reduce((a, b) => pontos[a] > pontos[b] ? a : b);
+    const msg = document.getElementById('mensagem-final');
+    const btn = document.getElementById('botao-redirecionar'); // Pegamos o botão pelo ID certo
 
-        if (pontos.combo >= 1 || (pontos.amor > 1 && pontos.futuro > 1)) {
-            msg.innerHTML = "<h3>💎 O COMBO MESTRE 💎</h3><p>Sua análise revelou que sua vida está em uma fase de múltiplas necessidades. Não basta resolver apenas um lado. Você precisa do <strong>Estudo Completo + Pirâmide + Plano de Expressão</strong> para um desbloqueio real e duradouro.</p>";
-            link.href = "https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia/";
-        } else if (max === 'amor') {
-            msg.innerHTML = "<h3>❤️ HARMONIA CONJUGAL ❤️</h3><p>Sua maior urgência é a estabilidade emocional e afetiva. A Numerologia Quântica indica que entender a sinastria e a vibração do casal é a chave para sua paz agora.</p>";
-            link.href = "https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia/harmonia.html";
-        } else if (max === 'futuro') {
-            msg.innerHTML = "<h3>🔮 PIRÂMIDE DA VIDA 🔮</h3><p>Seu perfil é visionário. Você precisa de orientação sobre ciclos, colheitas e os eventos que o universo está desenhando para o seu futuro próximo.</p>";
-            link.href = "https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia/piramide.html";
-        } else if (max === 'energia') {
-            msg.innerHTML = "<h3>⚡ PLANO DE EXPRESSÃO ⚡</h3><p>Sua vibração está em conflito. Você precisa entender como seus planos Físico, Mental e Emocional estão drenando sua força para retomar o controle da sua vida.</p>";
-            link.href = "https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia/planodeexpressao.html";
-        } else {
-            msg.innerHTML = "<h3>📜 ESTUDO COMPLETO 📜</h3><p>Você busca a essência. O seu nome e nascimento guardam códigos sobre sua missão de alma e talentos que você ainda não acessou.</p>";
-            link.href = "https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia/estudonumerologico.html";
-        }
+    // Aqui definimos para qual página de degustação ele vai
+    if (pontos.combo >= 1 || (pontos.amor > 1 && pontos.futuro > 1)) {
+        msg.innerHTML = "<h3>💎 O COMBO MESTRE 💎</h3><p>Sua análise revelou múltiplas necessidades. Você precisa do desbloqueio real e duradouro.</p>";
+        btn.href = "index.html"; // Vai para o index dos apps
+    } else if (max === 'amor') {
+        msg.innerHTML = "<h3>❤️ HARMONIA CONJUGAL ❤️</h3><p>Sua maior urgência é a estabilidade emocional e afetiva.</p>";
+        btn.href = "harmonia.html"; // Nome do seu arquivo de teste de harmonia
+    } else if (max === 'futuro') {
+        msg.innerHTML = "<h3>🔮 PIRÂMIDE DA VIDA 🔮</h3><p>Seu perfil é visionário. Você precisa de orientação sobre seus ciclos.</p>";
+        btn.href = "piramide.html"; // Nome do seu arquivo de teste de pirâmide
+    } else if (max === 'energia') {
+        msg.innerHTML = "<h3>⚡ PLANO DE EXPRESSÃO ⚡</h3><p>Sua vibração está em conflito. Retome o controle da sua vida.</p>";
+        btn.href = "planodeexpressao.html"; // Nome do seu arquivo de teste de plano
+    } else {
+        msg.innerHTML = "<h3>📜 ESTUDO COMPLETO 📜</h3><p>Você busca a essência. Seu nome guarda códigos que você ainda não acessou.</p>";
+        btn.href = "estudo.html"; // Nome do seu arquivo de teste de estudo (o que você mandou agora)
     }
+}
     renderizarPergunta();
 </script>
 </body>
 
 </html>
+
 
 
