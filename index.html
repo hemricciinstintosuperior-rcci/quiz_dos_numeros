@@ -41,84 +41,103 @@
 
     <div id="tela-resultado" class="resultado">
         <div id="mensagem-final"></div>
-        <a href="#" id="https://hemricciinstintosuperior-rcci.github.io/Trabalho_venda_Numerologia/index.html" class="btn-final">DESBLOQUEAR MEU ACESSO</a>
+        <a href="#" id="https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia//index.html" class="btn-final">DESBLOQUEAR MEU ACESSO</a>
     </div>
 </div>
 
 <script>
-    const perguntas = [
-        { q: "Qual o seu maior desejo hoje? 🎯", img: "ID_DA_IMAGEM_1", 
-          options: [
-              { t: "❤️ Harmonizar meu relacionamento atual", cat: "amor" },
-              { t: "🔮 Prever o que me espera no futuro", cat: "futuro" },
-              { t: "⚡ Recuperar minha energia e clareza mental", cat: "energia" },
-              { t: "🌟 Desvendar minha missão de vida completa", cat: "auto" }
-          ]},
-        { q: "O que mais te impede de ser feliz agora? 🚧", img: "ID_DA_IMAGEM_2", 
-          options: [
-              { t: "💔 Conflitos e brigas no amor", cat: "amor" },
-              { t: "⏳ Insegurança sobre o que está por vir", cat: "futuro" },
-              { t: "😵 Indecisão e cansaço constante", cat: "energia" },
-              { t: "🌀 Sinto que não sei quem eu sou de verdade", cat: "auto" }
-          ]},
-        { q: "Como você se sente ao acordar? ☕", img: "ID_DA_IMAGEM_3", 
-          options: [
-              { t: "😔 Pensando em problemas de relacionamento", cat: "amor" },
-              { t: "😰 Ansioso(a) com as contas ou futuro", cat: "futuro" },
-              { t: "😴 Sem energia física ou motivação", cat: "energia" },
-              { t: "🧭 Sinto que falta um propósito maior", cat: "auto" }
-          ]},
-        { q: "O que você gostaria que o universo te respondesse? ✨", img: "ID_DA_IMAGEM_4", 
-          options: [
-              { t: "💑 'Ele(a) é minha alma gêmea?'", cat: "amor" },
-              { t: "🗓️ 'Quando minha sorte vai mudar?'", cat: "futuro" },
-              { t: "🧠 'Como equilibrar minha mente e corpo?'", cat: "energia" },
-              { t: "📜 'Qual o segredo do meu destino?'", cat: "auto" }
-          ]},
-        { q: "Se pudesse mudar apenas UMA coisa hoje, seria: 🔄", img: "ID_DA_IMAGEM_5", 
-          options: [
-              { t: "💖 Ter paz no coração e na união", cat: "amor" },
-              { t: "📈 Ter sucesso e prosperidade garantida", cat: "futuro" },
-              { t: "🌈 Ter uma vibração positiva e foco", cat: "energia" },
-              { t: "🛡️ Ter o conhecimento total do meu nome", cat: "auto" }
-          ]},
-        { q: "Você acredita que repete ciclos do passado? ♾️", img: "ID_DA_IMAGEM_6", 
-          options: [
-              { t: "🫂 Sim, sempre atraio o mesmo tipo de pessoa", cat: "amor" },
-              { t: "💸 Sim, minha vida financeira parece travada", cat: "futuro" },
-              { t: "🔋 Sim, começo coisas e nunca termino", cat: "energia" },
-              { t: "🌀 Quero quebrar todos esses ciclos agora", cat: "combo" }
-          ]},
-        { q: "Qual ferramenta você mais confia? 🛠️", img: "ID_DA_IMAGEM_7", 
-          options: [
-              { t: "💕 Sinastria e Harmonia Amorosa", cat: "amor" },
-              { t: "🏛️ Pirâmide do Futuro e Destino", cat: "futuro" },
-              { t: "📊 Gráficos de Plano de Expressão", cat: "energia" },
-              { t: "📚 Estudo Numerológico Completo", cat: "auto" }
-          ]},
-        { q: "Como está sua mente hoje? 🧠", img: "ID_DA_IMAGEM_8", 
-          options: [
-              { t: "💭 Focada em alguém especial", cat: "amor" },
-              { t: "🚀 Focada em planos e metas distantes", cat: "futuro" },
-              { t: "🌫️ Nublada, confusa e sobrecarregada", cat: "energia" },
-              { t: "🧘 Buscando entender o 'porquê' de tudo", cat: "auto" }
-          ]},
-        { q: "Se o seu nome fosse uma chave, o que ele abriria? 🔑", img: "ID_DA_IMAGEM_9", 
-          options: [
-              { t: "🚪 A porta da felicidade a dois", cat: "amor" },
-              { t: "🚪 A porta da abundância futura", cat: "futuro" },
-              { t: "🚪 A porta do equilíbrio interior", cat: "energia" },
-              { t: "🏰 O castelo de todo o meu potencial oculto", cat: "auto" }
-          ]},
-        { q: "ÚLTIMA PERGUNTA: Qual sua escolha final? 🏁", img: "ID_DA_IMAGEM_10", 
-          options: [
-              { t: "🎯 Resolver apenas minha dor principal", cat: "auto" },
-              { t: "💎 Quero o Combo Completo (Tudo de uma vez)", cat: "combo" },
-              { t: "🔥 Quero entender Amor + Futuro + Energia", cat: "combo" },
-              { t: "✨ Quero a Transformação Total 360º", cat: "combo" }
-          ]}
-    ];
-
+ const perguntas = [
+    { 
+      q: "Qual o seu maior desejo hoje? 🎯", 
+      img: "https://images.unsplash.com/photo-1518112166137-85909459273c?q=80&w=400&auto=format&fit=crop", 
+      options: [
+          { t: "❤️ Harmonizar meu relacionamento atual", cat: "amor" },
+          { t: "🔮 Prever o que me espera no futuro", cat: "futuro" },
+          { t: "⚡ Recuperar minha energia e clareza mental", cat: "energia" },
+          { t: "🌟 Desvendar minha missão de vida completa", cat: "auto" }
+      ]},
+    { 
+      q: "O que mais te impede de ser feliz agora? 🚧", 
+      img: "https://images.unsplash.com/photo-1453306458620-5bbef13a5bca?q=80&w=400&auto=format&fit=crop", 
+      options: [
+          { t: "💔 Conflitos e brigas no amor", cat: "amor" },
+          { t: "⏳ Insegurança sobre o que está por vir", cat: "futuro" },
+          { t: "😵 Indecisão e cansaço constante", cat: "energia" },
+          { t: "🌀 Sinto que não sei quem eu sou de verdade", cat: "auto" }
+      ]},
+    { 
+      q: "Como você se sente ao acordar? ☕", 
+      img: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?q=80&w=400&auto=format&fit=crop", 
+      options: [
+          { t: "😔 Pensando em problemas de relacionamento", cat: "amor" },
+          { t: "😰 Ansioso(a) com as contas ou futuro", cat: "futuro" },
+          { t: "😴 Sem energia física ou motivação", cat: "energia" },
+          { t: "🧭 Sinto que falta um propósito maior", cat: "auto" }
+      ]},
+    { 
+      q: "O que você gostaria que o universo te respondesse? ✨", 
+      img: "https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?q=80&w=400&auto=format&fit=crop", 
+      options: [
+          { t: "💑 'Ele(a) é minha alma gêmea?'", cat: "amor" },
+          { t: "🗓️ 'Quando minha sorte vai mudar?'", cat: "futuro" },
+          { t: "🧠 'Como equilibrar minha mente e corpo?'", cat: "energia" },
+          { t: "📜 'Qual o segredo do meu destino?'", cat: "auto" }
+      ]},
+    { 
+      q: "Se pudesse mudar apenas UMA coisa hoje, seria: 🔄", 
+      img: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=400&auto=format&fit=crop", 
+      options: [
+          { t: "💖 Ter paz no coração e na união", cat: "amor" },
+          { t: "📈 Ter sucesso e prosperidade garantida", cat: "futuro" },
+          { t: "🌈 Ter uma vibração positiva e foco", cat: "energia" },
+          { t: "🛡️ Ter o conhecimento total do meu nome", cat: "auto" }
+      ]},
+    { 
+      q: "Você acredita que repete ciclos do passado? ♾️", 
+      img: "https://images.unsplash.com/photo-1516534775068-ba3e7458af70?q=80&w=400&auto=format&fit=crop", 
+      options: [
+          { t: "🫂 Sim, sempre atraio o mesmo tipo de pessoa", cat: "amor" },
+          { t: "💸 Sim, minha vida financeira parece travada", cat: "futuro" },
+          { t: "🔋 Sim, começo coisas e nunca termino", cat: "energia" },
+          { t: "🌀 Quero quebrar todos esses ciclos agora", cat: "combo" }
+      ]},
+    { 
+      q: "Qual ferramenta você mais confia? 🛠️", 
+      img: "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=400&auto=format&fit=crop", 
+      options: [
+          { t: "💕 Sinastria e Harmonia Amorosa", cat: "amor" },
+          { t: "🏛️ Pirâmide do Futuro e Destino", cat: "futuro" },
+          { t: "📊 Gráficos de Plano de Expressão", cat: "energia" },
+          { t: "📚 Estudo Numerológico Completo", cat: "auto" }
+      ]},
+    { 
+      q: "Como está sua mente hoje? 🧠", 
+      img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=400&auto=format&fit=crop", 
+      options: [
+          { t: "💭 Focada em alguém especial", cat: "amor" },
+          { t: "🚀 Focada em planos e metas distantes", cat: "futuro" },
+          { t: "🌫️ Nublada, confusa e sobrecarregada", cat: "energia" },
+          { t: "🧘 Buscando entender o 'porquê' de tudo", cat: "auto" }
+      ]},
+    { 
+      q: "Se o seu nome fosse uma chave, o que ele abriria? 🔑", 
+      img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=400&auto=format&fit=crop", 
+      options: [
+          { t: "🚪 A porta da felicidade a dois", cat: "amor" },
+          { t: "🚪 A porta da abundância futura", cat: "futuro" },
+          { t: "🚪 A porta do equilíbrio interior", cat: "energia" },
+          { t: "🏰 O castelo de todo o meu potencial oculto", cat: "auto" }
+      ]},
+    { 
+      q: "ÚLTIMA PERGUNTA: Qual sua escolha final? 🏁", 
+      img: "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=400&auto=format&fit=crop", 
+      options: [
+          { t: "🎯 Resolver apenas minha dor principal", cat: "auto" },
+          { t: "💎 Quero o Combo Completo (Tudo de uma vez)", cat: "combo" },
+          { t: "🔥 Quero entender Amor + Futuro + Energia", cat: "combo" },
+          { t: "✨ Quero a Transformação Total 360º", cat: "combo" }
+      ]}
+];
     let perguntaAtual = 0;
     let pontos = { amor: 0, futuro: 0, energia: 0, auto: 0, combo: 0 };
 
@@ -184,4 +203,5 @@
 </body>
 
 </html>
+
 
