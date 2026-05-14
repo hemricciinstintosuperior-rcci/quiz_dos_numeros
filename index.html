@@ -161,49 +161,108 @@
 </div>
 
 <script>
-    const questions = [
-        {
-            q: "Se sua vida fosse um livro hoje, qual seria o título do capítulo atual?",
-            img: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=500",
-            options: [
-                { t: "Corações à deriva (Busco paz no amor)", p: { amor: 3 } },
-                { t: "O labirinto do amanhã (Insegurança com o futuro)", p: { futuro: 3 } },
-                { t: "Bateria fraca (Falta de energia e foco)", p: { energia: 3 } },
-                { t: "Em busca da peça que falta (Autoconhecimento)", p: { auto: 2, combo: 1 } }
-            ]
-        },
-        {
-            q: "O que mais te drena energeticamente durante o dia?",
-            img: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=500",
-            options: [
-                { t: "Brigas e mal-entendidos com parceiro(a)", p: { amor: 3 } },
-                { t: "Medo de não prosperar financeiramente", p: { futuro: 2, auto: 1 } },
-                { t: "Procrastinação e confusão mental", p: { energia: 3 } },
-                { t: "Sinto que estou vivendo o destino de outra pessoa", p: { auto: 3, combo: 1 } }
-            ]
-        },
-        {
-            q: "Ao analisar sua trajetória, qual ciclo parece se repetir?",
-            img: "https://images.unsplash.com/photo-1516534775068-ba3e7458af70?auto=format&fit=crop&q=80&w=500",
-            options: [
-                { t: "Sempre atraio pessoas erradas", p: { amor: 3 } },
-                { t: "As oportunidades chegam, mas escapam no final", p: { futuro: 3 } },
-                { t: "Começo projetos com fogo, mas desisto logo", p: { energia: 3 } },
-                { t: "Quero entender a planta baixa do meu destino total", p: { combo: 3 } }
-            ]
-        },
-        {
-            q: "Qual dessas áreas você sente que precisa de um 'Mapa de 100 anos' agora?",
-            img: "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?auto=format&fit=crop&q=80&w=500",
-            options: [
-                { t: "Meu campo emocional (Harmonia)", p: { amor: 3 } },
-                { t: "Meus ciclos de sorte e desafios (Pirâmide)", p: { futuro: 3 } },
-                { t: "Minha vibração interna e talentos (Plano)", p: { energia: 3 } },
-                { t: "Quero o dossiê completo da minha existência", p: { combo: 4 } }
-            ]
-        }
-    ];
-
+const questions = [
+    {
+        q: "Se sua vida fosse um livro hoje, qual seria o título do capítulo atual?",
+        img: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=500",
+        options: [
+            { t: "Corações à deriva (Busco paz no amor)", p: { amor: 3 } },
+            { t: "O labirinto do amanhã (Insegurança no futuro)", p: { futuro: 3 } },
+            { t: "Bateria fraca (Falta de energia e foco)", p: { energia: 3 } },
+            { t: "Em busca da peça que falta (Autoconhecimento)", p: { auto: 2, combo: 1 } }
+        ]
+    },
+    {
+        q: "O que mais te drena energeticamente durante o dia?",
+        img: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=500",
+        options: [
+            { t: "Brigas e mal-entendidos afetivos", p: { amor: 3 } },
+            { t: "Medo de não prosperar financeiramente", p: { futuro: 2, auto: 1 } },
+            { t: "Procrastinação e confusão mental", p: { energia: 3 } },
+            { t: "Sinto que vivo um destino que não é meu", p: { auto: 3, combo: 1 } }
+        ]
+    },
+    {
+        q: "Qual desses 'chamados' você sente com mais força agora?",
+        img: "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&q=80&w=500",
+        options: [
+            { t: "Encontrar um amor verdadeiro ou salvar o atual", p: { amor: 3 } },
+            { t: "Saber a hora certa de agir e investir", p: { futuro: 3 } },
+            { t: "Alinhar minha mente com meu propósito", p: { energia: 2, auto: 1 } },
+            { t: "Dominar todos os códigos do meu nome", p: { combo: 3 } }
+        ]
+    },
+    {
+        q: "Como você descreveria sua sorte nos últimos meses?",
+        img: "https://images.unsplash.com/photo-1518112166137-85909459273c?auto=format&fit=crop&q=80&w=500",
+        options: [
+            { t: "Parece que há um bloqueio no meu coração", p: { amor: 3 } },
+            { t: "Altos e baixos que me deixam inseguro(a)", p: { futuro: 3 } },
+            { t: "Sinto-me estagnado(a), sem força vital", p: { energia: 3 } },
+            { t: "Quero entender o gráfico completo da minha sorte", p: { futuro: 1, combo: 2 } }
+        ]
+    },
+    {
+        q: "Ao analisar sua trajetória, qual ciclo parece se repetir?",
+        img: "https://images.unsplash.com/photo-1516534775068-ba3e7458af70?auto=format&fit=crop&q=80&w=500",
+        options: [
+            { t: "Sempre atraio o mesmo tipo de pessoa", p: { amor: 3 } },
+            { t: "As oportunidades chegam, mas escapam no fim", p: { futuro: 3 } },
+            { t: "Começo projetos e perco o entusiasmo logo", p: { energia: 3 } },
+            { t: "Quero quebrar todos os padrões limitantes", p: { combo: 3 } }
+        ]
+    },
+    {
+        q: "Qual dessas ferramentas você sente que mudaria seu jogo hoje?",
+        img: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=500",
+        options: [
+            { t: "Um guia para harmonizar meu relacionamento", p: { amor: 3 } },
+            { t: "Um mapa de previsões para os próximos anos", p: { futuro: 3, energia: 3 } },
+            { t: "Um diagnóstico da minha vibração interna", p: { energia: 3 } },
+            { t: "O dossiê mestre com todos os meus números", p: { combo: 3 } }
+        ]
+    },
+    {
+        q: "O que você faria se tivesse clareza total sobre seu destino?",
+        img: "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&q=80&w=500",
+        options: [
+            { t: "Daria uma chance real para a felicidade a dois", p: { amor: 2, auto: 1 } },
+            { t: "Faria escolhas financeiras muito mais ousadas", p: { futuro: 3 } },
+            { t: "Viveria com muito mais disposição e foco", p: { energia: 3 } },
+            { t: "Assumiria o controle total da minha missão", p: { combo: 3 } }
+        ]
+    },
+    {
+        q: "Como está sua mente ao acordar na maioria dos dias?",
+        img: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?auto=format&fit=crop&q=80&w=500",
+        options: [
+            { t: "Pensando em questões afetivas ou solidão", p: { amor: 3 } },
+            { t: "Preocupada com as contas e o amanhã", p: { futuro: 3 } },
+            { t: "Neblada, como se faltasse um 'clique' interno", p: { energia: 3 } },
+            { t: "Buscando o significado maior da minha vida", p: { auto: 3 } }
+        ]
+    },
+    {
+        q: "Se o seu nome fosse uma chave, o que ela abriria agora?",
+        img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=500",
+        options: [
+            { t: "A porta da união e cumplicidade", p: { amor: 3 } },
+            { t: "A porta da abundância e prosperidade", p: { futuro: 3 } },
+            { t: "A porta do equilíbrio e vitalidade", p: { energia: 3 } },
+            { t: "O castelo inteiro do meu potencial oculto", p: { combo: 4 } }
+        ]
+    },
+    {
+        q: "ÚLTIMA PERGUNTA: Qual nível de transformação você busca?",
+        img: "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&q=80&w=500",
+        options: [
+            { t: "Resolver apenas minha dor principal imediata", p: { auto: 2 } },
+            { t: "Entender meus ciclos de 100 anos (Plano)", p: { energia: 3 } },
+            { t: "Prever meus campos de desafios (Pirâmide)", p: { futuro: 3 } },
+            { t: "Acesso Total: Quero a Matriz Quântica Completa", p: { combo: 5 } }
+        ]
+    }
+];
     let currentIdx = 0;
     let scores = { amor: 0, futuro: 0, energia: 0, auto: 0, combo: 0 };
 
