@@ -3,210 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análise de Perfil Quântico</title>
+    <title>Portal Instinto Superior | Análise Vibracional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f172a; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .quiz-container { background: #1e293b; max-width: 550px; width: 100%; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); text-align: center; }
-        .logo-quiz { max-width: 100%; height: 180px; object-fit: cover; margin-bottom: 20px; border-radius: 12px; }
-        .progress-bar { width: 100%; height: 6px; background: #334155; border-radius: 10px; margin-bottom: 30px; overflow: hidden; }
-        .progress-fill { height: 100%; background: #ffd633; width: 0%; transition: 0.4s; }
-        .pergunta { display: none; animation: fadeIn 0.5s; }
-        .pergunta.ativa { display: block; }
-        h2 { font-size: 20px; margin-bottom: 25px; line-height: 1.4; color: #f8fafc; }
-        .btn-opcao { display: block; width: 100%; padding: 16px; margin-bottom: 12px; background: #334155; border: 2px solid transparent; border-radius: 12px; color: white; font-size: 16px; cursor: pointer; transition: 0.3s; text-align: left; }
-        .btn-opcao:hover { background: #475569; border-color: #ffd633; transform: scale(1.02); }
-        .processando { display: none; }
-        .resultado { display: none; text-align: center; animation: fadeIn 0.8s; }
-        .resultado h3 { color: #ffd633; font-size: 26px; margin-bottom: 15px; }
-        .resultado p { line-height: 1.6; color: #cbd5e1; margin-bottom: 25px; }
-        .btn-final { display: inline-block; padding: 20px 40px; background: #ffd633; color: #000; text-decoration: none; font-weight: bold; border-radius: 12px; font-size: 18px; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 214, 51, 0.3); }
-        .btn-final:hover { background: #eab308; transform: translateY(-3px); }
+        :root {
+            --primary: #ffd633;
+            --bg: #020617;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top right, #1e293b, #020617);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .quiz-wrapper {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 214, 51, 0.1);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #eab308, #ffd633);
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .img-pergunta {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255, 214, 51, 0.2);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .btn-option {
+            background: rgba(51, 65, 85, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 18px 24px;
+            border-radius: 14px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-option:hover {
+            background: rgba(255, 214, 51, 0.15);
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        /* Telas Especiais */
+        #loading, #result { display: none; }
+
+        .loader {
+            border: 4px solid rgba(255, 214, 51, 0.1);
+            border-left-color: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .result-title { color: var(--primary); font-size: 2rem; margin-bottom: 10px; }
         
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+        .final-cta {
+            background: var(--primary);
+            color: #000;
+            padding: 20px 30px;
+            border-radius: 14px;
+            display: inline-block;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 25px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .final-cta:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 214, 51, 0.4); }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-    
-    <div id="quiz-content"></div>
+<div class="quiz-wrapper">
+    <div class="card" id="quiz-card">
+        <div class="progress-container">
+            <div class="progress-bar"><div class="progress-fill" id="bar"></div></div>
+        </div>
 
-    <div id="tela-processando" class="processando">
-        <img src="https://hemricciinstintosuperior-rcci.github.io/app-plano-de-expressao/ícone-512.jpg" style="width:100px; animation: pulse 1.5s infinite;">
-        <h2>Sintonizando sua frequência...</h2>
-        <p>Aguarde enquanto cruzamos seus dados vibracionais.</p>
+        <div id="question-area">
+            <!-- Renderizado via JS -->
+        </div>
+
+        <div id="loading">
+            <div class="loader"></div>
+            <h3>Processando sua Matriz Quântica...</h3>
+            <p>Aguarde enquanto os ciclos de 100 anos estão sendo calculados.</p>
+        </div>
+
+        <div id="result">
+            <h2 class="result-title" id="res-title"></h2>
+            <p id="res-desc"></p>
+            <a href="#" id="res-link" class="final-cta">Ver Minha Análise Completa</a>
+        </div>
     </div>
-
-<div id="tela-resultado" class="resultado">
-    <div id="mensagem-final"></div>
-    <a href="#" id="botao-redirecionar" class="btn-final">DESBLOQUEAR MEU ACESSO</a>
-</div>
 </div>
 
 <script>
- const perguntas = [
-    { 
-      q: "Qual o seu maior desejo hoje? 🎯", 
-      img: "https://images.unsplash.com/photo-1518112166137-85909459273c?q=80&w=400&auto=format&fit=crop", 
-      options: [
-          { t: "❤️ Harmonizar meu relacionamento atual", cat: "amor" },
-          { t: "🔮 Prever o que me espera no futuro", cat: "futuro" },
-          { t: "⚡ Recuperar minha energia e clareza mental", cat: "energia" },
-          { t: "🌟 Desvendar minha missão de vida completa", cat: "auto" }
-      ]},
-    { 
-      q: "O que mais te impede de ser feliz agora? 🚧", 
-      img: "https://images.unsplash.com/photo-1453306458620-5bbef13a5bca?q=80&w=400&auto=format&fit=crop", 
-      options: [
-          { t: "💔 Conflitos e brigas no amor", cat: "amor" },
-          { t: "⏳ Insegurança sobre o que está por vir", cat: "futuro" },
-          { t: "😵 Indecisão e cansaço constante", cat: "energia" },
-          { t: "🌀 Sinto que não sei quem eu sou de verdade", cat: "auto" }
-      ]},
-    { 
-      q: "Como você se sente ao acordar? ☕", 
-      img: "https://images.unsplash.com/photo-1499209974431-9dac3adaf471?q=80&w=400&auto=format&fit=crop", 
-      options: [
-          { t: "😔 Pensando em problemas de relacionamento", cat: "amor" },
-          { t: "😰 Ansioso(a) com as contas ou futuro", cat: "futuro" },
-          { t: "😴 Sem energia física ou motivação", cat: "energia" },
-          { t: "🧭 Sinto que falta um propósito maior", cat: "auto" }
-      ]},
-    { 
-      q: "O que você gostaria que o universo te respondesse? ✨", 
-      img: "https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?q=80&w=400&auto=format&fit=crop", 
-      options: [
-          { t: "💑 'Ele(a) é minha alma gêmea?'", cat: "amor" },
-          { t: "🗓️ 'Quando minha sorte vai mudar?'", cat: "futuro" },
-          { t: "🧠 'Como equilibrar minha mente e corpo?'", cat: "energia" },
-          { t: "📜 'Qual o segredo do meu destino?'", cat: "auto" }
-      ]},
-    { 
-      q: "Se pudesse mudar apenas UMA coisa hoje, seria: 🔄", 
-      img: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=400&auto=format&fit=crop", 
-      options: [
-          { t: "💖 Ter paz no coração e na união", cat: "amor" },
-          { t: "📈 Ter sucesso e prosperidade garantida", cat: "futuro" },
-          { t: "🌈 Ter uma vibração positiva e foco", cat: "energia" },
-          { t: "🛡️ Ter o conhecimento total do meu nome", cat: "auto" }
-      ]},
-    { 
-      q: "Você acredita que repete ciclos do passado? ♾️", 
-      img: "https://images.unsplash.com/photo-1516534775068-ba3e7458af70?q=80&w=400&auto=format&fit=crop", 
-      options: [
-          { t: "🫂 Sim, sempre atraio o mesmo tipo de pessoa", cat: "amor" },
-          { t: "💸 Sim, minha vida financeira parece travada", cat: "futuro" },
-          { t: "🔋 Sim, começo coisas e nunca termino", cat: "energia" },
-          { t: "🌀 Quero quebrar todos esses ciclos agora", cat: "combo" }
-      ]},
-    { 
-      q: "Qual ferramenta você mais confia? 🛠️", 
-      img: "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=400&auto=format&fit=crop", 
-      options: [
-          { t: "💕 Sinastria e Harmonia Amorosa", cat: "amor" },
-          { t: "🏛️ Pirâmide do Futuro e Destino", cat: "futuro" },
-          { t: "📊 Gráficos de Plano de Expressão", cat: "energia" },
-          { t: "📚 Estudo Numerológico Completo", cat: "auto" }
-      ]},
-    { 
-      q: "Como está sua mente hoje? 🧠", 
-      img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=400&auto=format&fit=crop", 
-      options: [
-          { t: "💭 Focada em alguém especial", cat: "amor" },
-          { t: "🚀 Focada em planos e metas distantes", cat: "futuro" },
-          { t: "🌫️ Nublada, confusa e sobrecarregada", cat: "energia" },
-          { t: "🧘 Buscando entender o 'porquê' de tudo", cat: "auto" }
-      ]},
-    { 
-      q: "Se o seu nome fosse uma chave, o que ele abriria? 🔑", 
-      img: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=400&auto=format&fit=crop", 
-      options: [
-          { t: "🚪 A porta da felicidade a dois", cat: "amor" },
-          { t: "🚪 A porta da abundância futura", cat: "futuro" },
-          { t: "🚪 A porta do equilíbrio interior", cat: "energia" },
-          { t: "🏰 O castelo de todo o meu potencial oculto", cat: "auto" }
-      ]},
-    { 
-      q: "ÚLTIMA PERGUNTA: Qual sua escolha final? 🏁", 
-      img: "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=400&auto=format&fit=crop", 
-      options: [
-          { t: "🎯 Resolver apenas minha dor principal", cat: "auto" },
-          { t: "💎 Quero o Combo Completo (Tudo de uma vez)", cat: "combo" },
-          { t: "🔥 Quero entender Amor + Futuro + Energia", cat: "combo" },
-          { t: "✨ Quero a Transformação Total 360º", cat: "combo" }
-      ]}
-];
-    let perguntaAtual = 0;
-    let pontos = { amor: 0, futuro: 0, energia: 0, auto: 0, combo: 0 };
+    const questions = [
+        {
+            q: "Se sua vida fosse um livro hoje, qual seria o título do capítulo atual?",
+            img: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=500",
+            options: [
+                { t: "Corações à deriva (Busco paz no amor)", p: { amor: 3 } },
+                { t: "O labirinto do amanhã (Insegurança com o futuro)", p: { futuro: 3 } },
+                { t: "Bateria fraca (Falta de energia e foco)", p: { energia: 3 } },
+                { t: "Em busca da peça que falta (Autoconhecimento)", p: { auto: 2, combo: 1 } }
+            ]
+        },
+        {
+            q: "O que mais te drena energeticamente durante o dia?",
+            img: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=500",
+            options: [
+                { t: "Brigas e mal-entendidos com parceiro(a)", p: { amor: 3 } },
+                { t: "Medo de não prosperar financeiramente", p: { futuro: 2, auto: 1 } },
+                { t: "Procrastinação e confusão mental", p: { energia: 3 } },
+                { t: "Sinto que estou vivendo o destino de outra pessoa", p: { auto: 3, combo: 1 } }
+            ]
+        },
+        {
+            q: "Ao analisar sua trajetória, qual ciclo parece se repetir?",
+            img: "https://images.unsplash.com/photo-1516534775068-ba3e7458af70?auto=format&fit=crop&q=80&w=500",
+            options: [
+                { t: "Sempre atraio pessoas erradas", p: { amor: 3 } },
+                { t: "As oportunidades chegam, mas escapam no final", p: { futuro: 3 } },
+                { t: "Começo projetos com fogo, mas desisto logo", p: { energia: 3 } },
+                { t: "Quero entender a planta baixa do meu destino total", p: { combo: 3 } }
+            ]
+        },
+        {
+            q: "Qual dessas áreas você sente que precisa de um 'Mapa de 100 anos' agora?",
+            img: "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?auto=format&fit=crop&q=80&w=500",
+            options: [
+                { t: "Meu campo emocional (Harmonia)", p: { amor: 3 } },
+                { t: "Meus ciclos de sorte e desafios (Pirâmide)", p: { futuro: 3 } },
+                { t: "Minha vibração interna e talentos (Plano)", p: { energia: 3 } },
+                { t: "Quero o dossiê completo da minha existência", p: { combo: 4 } }
+            ]
+        }
+    ];
 
-    function renderizarPergunta() {
-        const content = document.getElementById('quiz-content');
-        const p = perguntas[perguntaAtual];
-        const progress = ((perguntaAtual) / perguntas.length) * 100;
-        document.getElementById('progressFill').style.width = progress + "%";
+    let currentIdx = 0;
+    let scores = { amor: 0, futuro: 0, energia: 0, auto: 0, combo: 0 };
 
-        let html = `<div class="pergunta ativa">
-            <img src="${p.img}" class="logo-quiz" onerror="this.src='https://via.placeholder.com/500x200/1e293b/ffd633?text=Instinto+Superior'">
-            <h2>${p.q}</h2>`;
-        
-        p.options.forEach((opt) => {
-            html += `<button class="btn-opcao" onclick="proxima('${opt.cat}')">${opt.t}</button>`;
-        });
-        
-        html += `</div>`;
-        content.innerHTML = html;
+    function render() {
+        const area = document.getElementById('question-area');
+        const q = questions[currentIdx];
+        document.getElementById('bar').style.width = `${(currentIdx / questions.length) * 100}%`;
+
+        area.innerHTML = `
+            <img src="${q.img}" class="img-pergunta">
+            <h2>${q.q}</h2>
+            <div class="options-grid">
+                ${q.options.map((opt, i) => `
+                    <button class="btn-option" onclick="handleSelect(${i})">${opt.t}</button>
+                `).join('')}
+            </div>
+        `;
     }
 
-    function proxima(categoria) {
-        pontos[categoria]++;
-        perguntaAtual++;
-        if (perguntaAtual < perguntas.length) renderizarPergunta();
-        else mostrarProcessamento();
+    window.handleSelect = (optIdx) => {
+        const points = questions[currentIdx].options[optIdx].p;
+        for (let key in points) { scores[key] += points[key]; }
+
+        currentIdx++;
+        if (currentIdx < questions.length) {
+            render();
+        } else {
+            showLoading();
+        }
     }
 
-    function mostrarProcessamento() {
-        document.getElementById('quiz-content').style.display = 'none';
-        document.getElementById('progressFill').style.width = "100%";
-        document.getElementById('tela-processando').style.display = 'block';
-        setTimeout(calcularResultado, 3500);
+    function showLoading() {
+        document.getElementById('question-area').style.display = 'none';
+        document.getElementById('bar').style.width = '100%';
+        document.getElementById('loading').style.display = 'block';
+        setTimeout(showResult, 3000);
     }
 
-function calcularResultado() {
-    document.getElementById('tela-processando').style.display = 'none';
-    document.getElementById('tela-resultado').style.display = 'block';
+    function showResult() {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
 
-    const max = Object.keys(pontos).reduce((a, b) => pontos[a] > pontos[b] ? a : b);
-    const msg = document.getElementById('mensagem-final');
-    const btn = document.getElementById('botao-redirecionar'); // Pegamos o botão pelo ID certo
+        const winner = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+        const title = document.getElementById('res-title');
+        const desc = document.getElementById('res-desc');
+        const link = document.getElementById('res-link');
 
-    // Aqui definimos para qual página de degustação ele vai
-    if (pontos.combo >= 1 || (pontos.amor > 1 && pontos.futuro > 1)) {
-        msg.innerHTML = "<h3>💎 O COMBO MESTRE 💎</h3><p>Sua análise revelou múltiplas necessidades. Você precisa do desbloqueio real e duradouro.</p>";
-        btn.href = "https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia"; // Vai para o index dos apps
-    } else if (max === 'amor') {
-        msg.innerHTML = "<h3>❤️ HARMONIA CONJUGAL ❤️</h3><p>Sua maior urgência é a estabilidade emocional e afetiva.</p>";
-        btn.href = "https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia/harmonia.html"; // Nome do seu arquivo de teste de harmonia
-    } else if (max === 'futuro') {
-        msg.innerHTML = "<h3>🔮 PIRÂMIDE DA VIDA 🔮</h3><p>Seu perfil é visionário. Você precisa de orientação sobre seus ciclos.</p>";
-        btn.href = "https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia/piramide.html"; // Nome do seu arquivo de teste de pirâmide
-    } else if (max === 'energia') {
-        msg.innerHTML = "<h3>⚡ PLANO DE EXPRESSÃO ⚡</h3><p>Sua vibração está em conflito. Retome o controle da sua vida.</p>";
-        btn.href = "https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia/planodeexpressao.html"; // Nome do seu arquivo de teste de plano
-    } else {
-        msg.innerHTML = "<h3>📜 ESTUDO COMPLETO 📜</h3><p>Você busca a essência. Seu nome guarda códigos que você ainda não acessou.</p>";
-        btn.href = "https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia/estudonumerologico.html"; // Nome do seu arquivo de teste de estudo (o que você mandou agora)
+        const baseUrl = "https://hemricciinstintosuperior-rcci.github.io/conexao_app_numerologia/";
+
+        if (scores.combo > 5) {
+            title.innerText = "Sinfonia Quântica Completa";
+            desc.innerText = "Sua alma não aceita respostas rasas. Você precisa do Estudo Numerológico completo integrando Matriz Quântica e Plano de Expressão.";
+            link.href = baseUrl + "index.html";
+        } else if (winner === 'amor') {
+            title.innerText = "Frequência da Harmonia";
+            desc.innerText = "Detectamos bloqueios no seu campo afetivo. A Sinastria e a Harmonia Conjugal são suas chaves agora.";
+            link.href = baseUrl + "harmonia.html";
+        } else if (winner === 'futuro') {
+            title.innerText = "Visão da Pirâmide";
+            desc.innerText = "Seus ciclos de destino estão em transição. Você precisa entender os desafios e as oportunidades da sua Pirâmide da Vida.";
+            link.href = baseUrl + "piramide.html";
+        } else if (winner === 'energia') {
+            title.innerText = "Plano de Expressão";
+            desc.innerText = "Sua vibração interna e externa estão dessincronizadas. O estudo do Plano de Expressão de 100 anos trará seu foco de volta.";
+            link.href = baseUrl + "planodeexpressao.html";
+        } else {
+            title.innerText = "Dossiê Numerológico";
+            desc.innerText = "Você busca a base de tudo. O Estudo Numerológico focado no seu nome e nascimento é o ponto de partida ideal.";
+            link.href = baseUrl + "estudonumerologico.html";
+        }
     }
-}
-    renderizarPergunta();
+
+    render();
 </script>
+
 </body>
-
 </html>
-
-
-
-
-
-
